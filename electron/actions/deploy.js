@@ -2,13 +2,14 @@
  * @Description  : ssh上传功能
  * @Author       : SC.beisu
  * @Date         : 2021-03-29 10:39:56
- * @LastEditors  : SC.beisu
- * @LastEditTime : 2021-04-02 16:15:49
+ * @LastEditors: Sc
+ * @LastEditTime: 2021-04-09 14:40:45
  * @FilePath     : /fy-deploy-cli/electron/actions/deploy.js
  */
 const {
   executeTaskList
   ,createTaskList
+  ,checkEnvCorrect
 } = require('../utils/deploy')
 
 module.exports = () => {
@@ -17,9 +18,11 @@ module.exports = () => {
     const envConfig = Object.assign(res[0]['test'], {
       passphrase: res[0].passphrase
     }, res[1])
-    console.log(envConfig)
+    checkEnvCorrect(envConfig)
     createTaskList(envConfig)
     return executeTaskList(envConfig)
+  }).catch(e => {
+    console.log(e)
   })
 }
 

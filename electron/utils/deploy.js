@@ -2,8 +2,8 @@
  * @Description  : delop工具类
  * @Author       : SC.beisu
  * @Date         : 2021-03-29 10:40:59
- * @LastEditors  : SC.beisu
- * @LastEditTime : 2021-04-08 15:26:22
+ * @LastEditors: Sc
+ * @LastEditTime: 2021-04-09 14:38:38
  * @FilePath     : /fy-deploy-cli/electron/utils/deploy.js
  */
 const fs = require('fs')
@@ -18,47 +18,41 @@ const {error, succeed, loading, log, closeLoading} = require('../server/svr')
 const ssh = new NodeSSH()
 const maxBuffer = 5000 * 1024
 
-const config = {
-  projectName: 'fy',
-  privateKey: 'C:\\users',
-  passphrase: '',
-  cluster: [],
-  dev: {
-    name: '测试环境 95端口',
-    script: 'npm run build',
-    host: '192.168.10.95',
-    port: 22,
-    username: 'root',
-    password: 'fengyukeji',
-    distPath: 'dist',
-    webDir: '/home/FYBackstage/dist',
-    isRemoveRemoteFile: false,
-    isRemoveLocalFile: false
-  }
-}
-
 // 任务列表
 let taskList
 
 // 检查环境是否正确
 const checkEnvCorrect = (config, env) => {
   const keys = ['name', 'host', 'port', 'username', 'distPath', 'webDir']
-
-  if (config) {
-    keys.forEach((key) => {
-      if (!config[env][key] || config[env][key] === '/') {
-        error(
-          `配置错误: ${`${env}环境`} ${
-            `${key}属性`
-          } 配置不正确`
-        )
-        process.exit(1)
+  childProcess.exec(
+    `cd ${config['folder']}`,
+    { cwd: process.cwd(), maxBuffer: maxBuffer },
+    (e) => {
+      if (e === null) {
+        // closeLoading('打包成功')
+        // succeed('打包成功')
+        // resolve()
+      } else {
+        // reject(e.message)
       }
-    })
-  } else {
-    error('配置错误: 未指定部署环境或指定部署环境不存在')
-    process.exit(1)
-  }
+    }
+  )
+
+  // if (config) {
+  //   keys.forEach((key) => {
+  //     if (!config[env][key] || config[env][key] === '/') {
+  //       error(
+  //         `配置错误: ${`${env}环境`} ${
+  //           `${key}属性`
+  //         } 配置不正确`
+  //       )
+  //       process.exit(1)
+  //     }
+  //   })
+  // } else {
+  //   error('配置错误: 未指定部署环境或指定部署环境不存在')
+  //   process.exit(1)
+  // }
 }
 
 // 执行打包脚本
@@ -66,8 +60,8 @@ const execBuild = async (config, index) => {
   try {
     // const script = "pwd && cd ~/Desktop/program/fengyu/fengyuBackstage && npm run build"
 
-    const script = `cd ${config['folder']} && ${config['script']}`
-
+    // const script = `cd ${config['folder']} && ${config['script']}`
+    const script = config['script']
 
     loading('正在打包中')
 

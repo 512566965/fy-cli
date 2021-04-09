@@ -2,8 +2,8 @@
  * @Description  : 提示
  * @Author       : SC.beisu
  * @Date         : 2021-04-06 11:03:12
- * @LastEditors  : SC.beisu
- * @LastEditTime : 2021-04-08 15:37:23
+ * @LastEditors: Sc
+ * @LastEditTime: 2021-04-09 14:14:09
  * @FilePath     : /fy-deploy-cli/src/components/dialog/index.vue
 -->
 <template>
@@ -37,7 +37,7 @@ const typeMap = {
   , info: 'icon-tishi'
   , warning: 'icon-prompt-fill'
   , error: 'icon-warning-fill'
-  , loading: 'icon-load-a'
+  , loading: 'icon-load-a rotateing'
 }
 export default {
   name: 'dialogVue',
@@ -90,6 +90,8 @@ export default {
 </script>
 
 <style lang="scss">
+// @-webkit-keyframes rotate { from { margin-left: -20%; } to { margin-left: 100%; }  }
+@keyframes rotate { from { transform: rotate(0deg) } to {  transform: rotate(359deg) }  }
 .wrapper {
   position: fixed;
   top: 0;
@@ -121,8 +123,14 @@ export default {
       margin: 15px 0;
       color: #575A5D;
       & > .dialogIcon {
+        display: inline-block;
         margin: 0 10px;
         font-size: 24px;
+        // transition: transform linear 2s;
+        // transform: rotate(180deg);
+      }
+      & > .rotateing {
+        animation: 3s ease 0s infinite rotate;
       }
     }
     &__footer {
