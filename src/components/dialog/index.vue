@@ -3,10 +3,11 @@
  * @Author       : SC.beisu
  * @Date         : 2021-04-06 11:03:12
  * @LastEditors: Sc
- * @LastEditTime: 2021-04-09 14:14:09
+ * @LastEditTime: 2021-04-12 10:13:09
  * @FilePath     : /fy-deploy-cli/src/components/dialog/index.vue
 -->
 <template>
+ <transition name="dialog-fade">
   <div
     v-show="visible"
     class="wrapper"
@@ -29,14 +30,15 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
 const typeMap = {
-  succeed: 'icon-security-fill'
-  , info: 'icon-tishi'
-  , warning: 'icon-prompt-fill'
-  , error: 'icon-warning-fill'
+  succeed: 'icon-security-fill green'
+  , info: 'icon-tishi green'
+  , warning: 'icon-prompt-fill yellow'
+  , error: 'icon-warning-fill red'
   , loading: 'icon-load-a rotateing'
 }
 export default {
@@ -90,8 +92,7 @@ export default {
 </script>
 
 <style lang="scss">
-// @-webkit-keyframes rotate { from { margin-left: -20%; } to { margin-left: 100%; }  }
-@keyframes rotate { from { transform: rotate(0deg) } to {  transform: rotate(359deg) }  }
+@import '@/assets/css/dialog.css';
 .wrapper {
   position: fixed;
   top: 0;

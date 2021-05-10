@@ -2,8 +2,8 @@
  * @Description  : webpack配置文件
  * @Author       : SC.beisu
  * @Date         : 2021-03-03 13:47:38
- * @LastEditors  : SC.beisu
- * @LastEditTime : 2021-03-31 11:19:05
+ * @LastEditors: Sc
+ * @LastEditTime: 2021-04-15 15:05:48
  * @FilePath     : /fy-deploy-cli/src/build/webpack.base.conf.js
  */
 'use strict'
@@ -52,6 +52,17 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/, // 忽略node_modules里的js文件
+        loader: "babel-loader",
+        options: {
+            presets: ["@babel/preset-env"],
+            plugins: [
+              "@babel/plugin-proposal-class-properties",
+            ]
+        }
+      },
       {
         test: /\.vue$/,
         use: ['vue-loader'],
